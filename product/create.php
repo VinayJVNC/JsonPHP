@@ -13,12 +13,8 @@ $db = $database->getConnection();
 
 $product = new Product($db);
 
-/*print_r($product);
-exit();*/
 $data = json_decode(file_get_contents("php://input"));
 
-// set ID property of product to be edited
-$product->id = $data->id;
 
 $product->name = $data->name;
 $product->price = $data->price;
@@ -32,7 +28,7 @@ if ($product->create()){
 	echo '}';
 }else{
 	echo '{';
-		echo '"Message" : "Unable to create product"';
+		echo '"message" : "Unable to create product"';
 	echo '}';
 }
 ?>
