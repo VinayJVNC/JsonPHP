@@ -97,7 +97,7 @@ class Product{
 	}
 
 	public function deleteProduct(){
-		$query = "DELETE FROM " . $this->tableName." WHERE id = ?";
+		$query = "DELETE FROM " . $this->tableName ." WHERE id = ?";		
 		$stmt = $this->conn->prepare($query);
 		$this->id = htmlspecialchars(strip_tags($this->id));
 		$stmt->bindParam(1,$this->id);

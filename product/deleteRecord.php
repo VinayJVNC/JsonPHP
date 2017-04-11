@@ -15,9 +15,13 @@ $product = new Product($db);
 
 $data = json_encode(file_get_contents("php://input"));
 
+print_r($data);
+die("here");
+
 $product->id = $data->id;
 
 if($product->deleteProduct()){
+
 	echo '{';
 		echo '"message" : "Product was deleted"';
 	echo '}';
