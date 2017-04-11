@@ -70,5 +70,41 @@ class Product{
 		$this->category_id = $row['category_id'];
 		$this->category_name = $row['category_name'];
 	}
+
+	public function updateProduct(){
+		$query = "UPDATE " .$this->tableName . " SET name = :name, price = :price, description = :description, category_id = :category_id WHERE id = :id";
+
+		$stmt = $this->conn->prepare($query);
+
+		$this->name = htmlspecialchars(strip_tags($this->name));
+		$this->description = htmlspecialchars(strip_tags($this->description));
+		$this->price = htmlspecialchars(strip_tags($this->price));
+		$this->category_id = htmlspecialchars(strip_tags($this->category_id));
+		$this->id = htmlspecialchars(strip_tags($this->id));
+
+		$stmt->bindParam(':name', $this->name);
+		$stmt->bindParam(':description', $this->description);
+		$stmt->bindParam(':price', $this->price);
+		$stmt->bindParam(':category_id', $this->category_id);
+		$stmt->bindParam(':id', $this->id);
+
+		if($stmt->execute()){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function deleteProduct(){
+		$query = "DELETE FROM " . $this->tableName." WHERE id = ?";
+		$stmt = $this->conn->prepare($query);
+		$this->id = htmlspecialchars(strip_tags($this->id));
+		$stmt->bindParam(1,$this->id);
+		if($stmt->execute()){
+			return true;
+		}
+		return false;
+	}
 }
 ?>
